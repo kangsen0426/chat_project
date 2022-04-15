@@ -13,7 +13,9 @@
 </script>
 <style lang="scss">
 	@import "uview-ui/index.scss";
-	@import  "./common/iconfont.css";
-	@import  "./common/animate.css";
-	
+	@import "./common/iconfont.css";
+	@import "./common/animate.css";
+	/* 全局样式 */
+	@import "./common/free.css";
+	@import "./common/common.css";
 </style>
