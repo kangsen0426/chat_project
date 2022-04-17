@@ -74,6 +74,14 @@
 				}
 			}
 
+		}, {
+			"path": "pages/addInput/addInput",
+			"style": {
+				"navigationBarTitleText": "发布",
+				"enablePullDownRefresh": false
+			
+			}
+
 		}
 	],
 	"globalStyle": {

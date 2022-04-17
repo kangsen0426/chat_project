@@ -62,6 +62,11 @@
 				url: "../search/search"
 			})
 		},
+		onNavigationBarButtonTap() {
+			uni.navigateTo({
+				url: "../addInput/addInput"
+			})
+		},
 		onLoad() {
 			let _this = this
 			let res = uni.getSystemInfo({
