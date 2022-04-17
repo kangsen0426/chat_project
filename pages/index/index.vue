@@ -56,6 +56,12 @@
 				newsList: []
 			}
 		},
+		//导航栏搜索点击事件
+		onNavigationBarSearchInputClicked() {
+			uni.navigateTo({
+				url: "../search/search"
+			})
+		},
 		onLoad() {
 			let _this = this
 			let res = uni.getSystemInfo({

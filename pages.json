@@ -49,6 +49,31 @@
 				"enablePullDownRefresh": false
 			}
 
+		}, {
+			"path": "pages/search/search",
+			"style": {
+				"app-plus": {
+					"titleNView": {
+						"searchInput": {
+							"align": "center",
+							"backgroundColor": "#F5F4F2",
+							"borderRadius": "4px",
+							"disabled": false,
+							"placeholder": "搜索帖子",
+							"placeholderColor": "#6D6C67"
+						},
+						"buttons": [{
+							"color": "#333333",
+							"colorPressed": "#FD597C",
+							"float": "right",
+							"fontSize": "14px",
+							"fontSrc": "/static/iconfont.ttf",
+							"text": "搜索"
+						}]
+					}
+				}
+			}
+
 		}
 	],
 	"globalStyle": {
