@@ -8,12 +8,20 @@
 		</scroll-view>
 		<swiper :duration="500" :current="tabIndex" @change="onchangeTab" :style="'height:'+scrollH+'px'">
 			<swiper-item v-for="(item,i) in newsList" :key="i">
-				<scroll-view scroll-y="true" :style="'height:'+scrollH+'px'">
-					<block v-for="(item2,index) in item.list" :key="index">
-						<common-list :item="item2" :index="index" @follow="togglefollow" @togglesupport="doSupport">
-						</common-list>
-						<divider></divider>
-					</block>
+				<scroll-view @scrolltolower="loadMore(i)" scroll-y="true" :style="'height:'+scrollH+'px'">
+					<template v-if="item.list.length > 0">
+						<block v-for="(item2,index) in item.list" :key="index">
+							<common-list :item="item2" :index="index" @follow="togglefollow" @togglesupport="doSupport">
+							</common-list>
+							<divider></divider>
+						</block>
+						<load-more :loadmore="item.loadmore"></load-more>
+					</template>
+					<!-- 无数据 -->
+					<template v-else>
+						<no-thing></no-thing>
+					</template>
+
 				</scroll-view>
 			</swiper-item>
 
@@ -26,10 +34,14 @@
 <script>
 	import commonList from "../../components/common/commonList.vue"
 	import divider from '../../components/common/divider.vue'
+	import loadMore from '../../components/common/loadmore.vue'
+	import noThing from "../../components/common/nothing.vue"
 	export default {
 		components: {
 			commonList,
-			divider
+			divider,
+			loadMore,
+			noThing
 		},
 		data() {
 			return {
@@ -54,11 +66,26 @@
 			this.getNewsList()
 		},
 		methods: {
+			loadMore(index) {
+				let item = this.newsList[index]
+
+				//防止重复加载
+				if (item.loadmore !== '上拉加载更多') {
+					return
+				}
+
+				item.loadmore = '加载中...'
+
+				setTimeout(() => {
+					item.loadmore = '上拉加载'
+				}, 2000)
+			},
 			getNewsList() {
 				let arr = []
 
 				for (let i = 0; i < this.tabBars.length; i++) {
 					let obj = {
+						loadmore: '上拉加载更多',
 						list: [{
 							username: '千北',
 							useravatar: '',
@@ -105,7 +132,7 @@
 					}
 					arr.push(obj)
 				}
-				
+
 				this.newsList = arr
 			},
 			onchangeTab(e) {
