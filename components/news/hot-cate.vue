@@ -27,11 +27,9 @@
 		methods: {
 			openMore() {
 
-				console.log('click more')
-
-				// uni.navigateTo({
-				// 	url: '../../pages/topic-nav/topic-nav',
-				// });
+				uni.navigateTo({
+					url: "../../pages/topicNav/topicNav"
+				});
 			},
 			openDetail(item) {
 				console.log('click detail')

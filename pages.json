@@ -32,7 +32,7 @@
 			"path": "pages/dynamic/dynamic",
 			"style": {
 				"navigationBarTitleText": "动态",
-				"navigationStyle":"custom",
+				"navigationStyle": "custom",
 				"enablePullDownRefresh": false
 			}
 
@@ -80,7 +80,14 @@
 			"style": {
 				"navigationBarTitleText": "发布",
 				"enablePullDownRefresh": false
-			
+
+			}
+
+		}, {
+			"path": "pages/topicNav/topicNav",
+			"style": {
+				"navigationBarTitleText": "话题分类",
+				"enablePullDownRefresh": false
 			}
 
 		}
