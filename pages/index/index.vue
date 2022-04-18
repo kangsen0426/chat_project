@@ -33,15 +33,14 @@
 
 <script>
 	import commonList from "../../components/common/commonList.vue"
-	import divider from '../../components/common/divider.vue'
 	import loadMore from '../../components/common/loadmore.vue'
-	import noThing from "../../components/common/nothing.vue"
+
 	export default {
 		components: {
 			commonList,
-			divider,
+	
 			loadMore,
-			noThing
+		
 		},
 		data() {
 			return {

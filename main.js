@@ -4,20 +4,31 @@ import App from './App'
 import Vue from 'vue'
 import uView from "uview-ui";
 Vue.use(uView);
+
+
+// 引入全局组件
+import divider from './components/common/divider.vue';
+Vue.component('divider', divider)
+import noThing from './components/common/nothing.vue';
+Vue.component('no-thing', noThing)
+
+
 Vue.config.productionTip = false
 App.mpType = 'app'
 const app = new Vue({
-    ...App
+	...App
 })
 app.$mount()
 // #endif
 
 // #ifdef VUE3
-import { createSSRApp } from 'vue'
+import {
+	createSSRApp
+} from 'vue'
 export function createApp() {
-  const app = createSSRApp(App)
-  return {
-    app
-  }
+	const app = createSSRApp(App)
+	return {
+		app
+	}
 }
 // #endif

@@ -23,6 +23,7 @@
 </template>
 
 <script>
+
 	import uploadImage from '../../components/common/upload-image.vue'
 	export default {
 		components: {

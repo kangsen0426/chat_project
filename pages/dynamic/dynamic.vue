@@ -74,18 +74,16 @@
 <script>
 	import navBar from '@/components/uni-ui/uni-nav-bar/uni-nav-bar.vue'
 	import commonList from "@/components/common/commonList.vue"
-	import divider from "@/components/common/divider.vue"
 	import loadMore from "@/components/common/loadmore.vue"
-	import noThing from "@/components/common/nothing.vue"
 	import hotCatBox from "@/components/news/hot-cate.vue"
 	import topicList from "@/components/news/topic-list.vue"
 	export default {
 		components: {
 			navBar,
 			commonList,
-			divider,
+		
 			loadMore,
-			noThing,
+		
 			hotCatBox,
 			topicList
 		},

@@ -90,6 +90,19 @@
 				"enablePullDownRefresh": false
 			}
 
+		}, {
+			"path": "pages/topicDetail/topicDetail",
+			"style": {
+				"app-plus": {
+					"titleNView": {
+						"type": "transparent",
+						"buttons": [{
+							"type": "menu"
+						}]
+					}
+				}
+			}
+
 		}
 	],
 	"globalStyle": {

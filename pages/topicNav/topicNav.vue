@@ -47,8 +47,8 @@
 	export default {
 		components: {
 			topicList,
-			loadMore,
-			noThing
+			loadMore
+		
 		},
 		data() {
 			return {
@@ -81,7 +81,7 @@
 						news_count: 0
 					}]
 				}],
-				choose: false,
+				choose: false, 
 
 			}
 		},
