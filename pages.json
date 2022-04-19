@@ -39,8 +39,27 @@
 		}, {
 			"path": "pages/message/message",
 			"style": {
-				"navigationBarTitleText": "消息",
-				"enablePullDownRefresh": false
+				"navigationBarTitleText": "消息列表",
+				"enablePullDownRefresh": true,
+				"app-plus": {
+					"titleNView": {
+						"buttons": [{
+							"color": "#333333",
+							"colorPressed": "#FD597C",
+							"float": "left",
+							"fontSize": "20px",
+							"fontSrc": "/static/iconfont.ttf",
+							"text": "\ue611"
+						}, {
+							"color": "#333333",
+							"colorPressed": "#FD597C",
+							"float": "right",
+							"fontSize": "20px",
+							"fontSrc": "/static/iconfont.ttf",
+							"text": "\ue649"
+						}]
+					}
+				}
 			}
 
 		}, {
@@ -104,7 +123,16 @@
 			}
 
 		}
-	],
+	    ,{
+            "path" : "pages/userList/userList",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+    ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "社区交友",
@@ -113,7 +141,7 @@
 	},
 	"tabBar": {
 		"color": "#909399",
-		"selectedColor": "#3DAD6A",
+		"selectedColor": "#FD597C",
 		"backgroundColor": "#FFFFFF",
 		"borderStyle": "black",
 		"list": [{
