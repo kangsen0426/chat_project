@@ -2,8 +2,7 @@ import App from './App'
 
 // #ifndef VUE3
 import Vue from 'vue'
-import uView from "uview-ui";
-Vue.use(uView);
+
 
 
 // 引入全局组件

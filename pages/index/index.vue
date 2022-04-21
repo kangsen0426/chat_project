@@ -38,9 +38,9 @@
 	export default {
 		components: {
 			commonList,
-	
+
 			loadMore,
-		
+
 		},
 		data() {
 			return {
@@ -109,7 +109,12 @@
 								unsupport_count: 2
 							},
 							comment_count: 2,
-							share_num: 2
+							share_num: 2,
+							images: [{
+								url: '/static/demo/banner1.jpg'
+							}, {
+								url: '/static/demo/banner1.jpg'
+							}]
 						}, {
 							username: '千北',
 							useravatar: '',

@@ -37,11 +37,11 @@
 					style="margin-right: 20rpx;"></text>
 				<text>{{item.support.unsupport_count > 0 ? item.support.unsupport_count : '踩'}}</text>
 			</view>
-			<view class="btn_item animated" hover-class="rubberBand text-main" @click="openDetail">
+			<view class="btn_item animated" hover-class="rubberBand text-main" @click="doComment">
 				<text class="iconfont icon-pinglun2" style="margin-right: 20rpx;"></text>
 				<text>{{item.comment_count > 0 ? item.comment_count : '评论'}}</text>
 			</view>
-			<view class="btn_item animated" hover-class="rubberBand text-main" @click="share">
+			<view class="btn_item animated" hover-class="rubberBand text-main" @click="doShare">
 				<text class="iconfont icon-zhuanfa1" style="margin-right: 20rpx;"></text>
 				<text>{{item.share_num > 0 ? item.share_num :'分享'}}</text>
 			</view>
@@ -58,8 +58,11 @@
 				required: true
 			},
 			index: {
-				type: Number,
-				required: true
+				type: Number
+			},
+			isdetail: {
+				type: Boolean,
+				default: false
 			}
 		},
 		methods: {
@@ -70,7 +73,11 @@
 				this.$emit('follow', this.index)
 			},
 			openDetail() {
-
+				// 处于详情中
+				if (this.isdetail) return;
+				uni.navigateTo({
+					url: "../../pages/detail/detail?detail=" + JSON.stringify(this.item)
+				})
 			},
 			support() {
 				this.$emit('togglesupport', {
@@ -84,8 +91,21 @@
 					index: this.index
 				})
 			},
-			share() {
-
+			// 评论
+			doComment() {
+				// this.checkAuth(() => {
+				if (!this.isdetail) {
+					return this.openDetail()
+				}
+				this.$emit('doComment')
+				// })
+			},
+			// 分享
+			doShare() {
+				if (!this.isdetail) {
+					return this.openDetail()
+				}
+				this.$emit('doShare')
 			}
 		}
 	}
