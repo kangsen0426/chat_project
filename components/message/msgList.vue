@@ -9,7 +9,7 @@
 				<text class="font-md">{{item.username}}</text>
 				<text class="font-sm text-secondary">
 					{{item.update_time | formatTime}}</text>
-			
+
 				</text>
 			</view>
 			<view class="flex align-center justify-between">
@@ -46,6 +46,11 @@
 					username: this.item.username,
 					userpic: this.item.avatar
 				}
+				uni.navigateTo({
+					url: "../../pages/userChat/userChat"
+				})
+				
+				
 				// uni.navigateTo({
 				// 	url: '../../pages/user-chat/user-chat?user=' + JSON.stringify(user),
 				// 	success: () => {

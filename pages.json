@@ -152,6 +152,25 @@
 				}
 			}
 
+		}, {
+			"path": "pages/userChat/userChat",
+			"style": {
+				"navigationBarTitleText": "聊天",
+				"app-plus": {
+					"bounce": "none",
+					"titleNView": {
+						"buttons": [{
+							"color": "#333333",
+							"colorPressed": "#FD597C",
+							"float": "right",
+							"fontSize": "20px",
+							"fontSrc": "/static/iconfont.ttf",
+							"text": "\ue628"
+						}]
+					}
+				}
+			}
+
 		}
 	],
 	"globalStyle": {
