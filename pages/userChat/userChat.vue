@@ -29,8 +29,6 @@
 </template>
 
 <script>
-	
-
 	import userChatList from '@/components/user-chat/user-chat-list.vue';
 	import bottomInput from '@/components/common/bottom-input.vue';
 	export default {
@@ -42,6 +40,27 @@
 			return {
 				scrollInto: "",
 				list: [{
+					data: '阿卜杜喀喀发觉纽芬兰辽宁省泛蓝分裂看法',
+					avatar: '',
+					username: '千北',
+					user_id: 2,
+					type: 'text',
+					create_time: 1570783530
+				}, {
+					data: 'adbnkajbnfjks啊发哪家啊部分教案设计附近按发表',
+					avatar: '',
+					username: '千北',
+					user_id: 1,
+					type: 'text',
+					create_time: 1650519046
+				}, {
+					data: 'adbnkajbnfjks啊发哪家啊部分教案设计附近按发表',
+					avatar: '',
+					username: '千北',
+					user_id: 2,
+					type: 'text',
+					create_time: 1650519046
+				}, {
 					data: '阿卜杜喀喀发觉纽芬兰辽宁省泛蓝分裂看法',
 					avatar: '',
 					username: '千北',

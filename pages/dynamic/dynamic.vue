@@ -81,9 +81,9 @@
 		components: {
 			navBar,
 			commonList,
-		
+
 			loadMore,
-		
+
 			hotCatBox,
 			topicList
 		},
@@ -190,7 +190,9 @@
 		},
 		methods: {
 			openSearch() {
-
+				uni.navigateTo({
+					url: "../search/search?type=topic"
+				})
 			},
 			onchangeTab(e) {
 				// 内容切换

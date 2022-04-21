@@ -92,9 +92,9 @@
 			popupEvent(e) {
 				switch (e) {
 					case 'friend':
-						// uni.navigateTo({
-						// 	url: '../search/search?type=user',
-						// });
+						uni.navigateTo({
+							url: '../search/search?type=user',
+						});
 						break;
 					case 'clear':
 						// this.$store.commit('clearChatList')

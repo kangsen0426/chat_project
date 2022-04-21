@@ -4006,21 +4006,14 @@ var render = function() {
         : [
             _vm._l(_vm._$g(6, "f"), function(item, index, $21, $31) {
               return [
-                _c("common-list", {
-                  key: item["k0"],
-                  attrs: { _i: "7-" + $31 },
-                  on: {
-                    follow: function($event) {
-                      return _vm.$handleViewEvent($event)
-                    },
-                    togglesupport: function($event) {
-                      return _vm.$handleViewEvent($event)
-                    }
-                  }
-                }),
-                _c("divider", { key: item["k1"], attrs: { _i: "8-" + $31 } })
+                _vm._$g("7-" + $31, "i")
+                  ? [_c("common-list", { attrs: { _i: "8-" + $31 } })]
+                  : _vm._$g("9-" + $31, "e")
+                  ? [_c("topic-list", { attrs: { _i: "10-" + $31 } })]
+                  : [_c("user-list", { attrs: { _i: "12-" + $31 } })]
               ]
-            })
+            }),
+            _c("load-more", { attrs: { _i: 13 } })
           ]
     ],
     2

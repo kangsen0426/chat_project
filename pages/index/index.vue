@@ -58,7 +58,7 @@
 		//导航栏搜索点击事件
 		onNavigationBarSearchInputClicked() {
 			uni.navigateTo({
-				url: "../search/search"
+				url: "../search/search?type=post"
 			})
 		},
 		onNavigationBarButtonTap() {
