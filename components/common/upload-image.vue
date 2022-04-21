@@ -5,6 +5,7 @@
 				<view class="uni-uploader-title">点击可预览选好的图片</view>
 				<view class="uni-uploader-info">{{imageList.length}}/9</view>
 			</view>
+
 			<view class="uni-uploader-body">
 				<view class="uni-uploader__files">
 					<block v-for="(image,index) in imageList" :key="index">
@@ -44,12 +45,11 @@
 	export default {
 		props: {
 			list: {
-				type: Array,
-				default: () => []
+				type: Array
 			},
 			show: {
 				type: Boolean,
-				default: () => true
+				default: true
 			}
 		},
 		data() {
@@ -65,9 +65,9 @@
 			}
 		},
 		created() {
+
 			this.imageList = this.list
-			
-		
+
 		},
 		destroyed() {
 			this.imageList = [],
@@ -92,9 +92,13 @@
 							this.$emit('change', this.imageList)
 						}
 					},
+					fail(err) {
+						console.log(err)
+					}
 				});
 			},
 			chooseImage: async function() {
+				
 				// #ifdef APP-PLUS
 				// TODO 选择相机或相册时 需要弹出actionsheet，目前无法获得是相机还是相册，在失败回调中处理
 				if (this.sourceTypeIndex !== 2) {
@@ -120,23 +124,29 @@
 					success: (res) => {
 						// console.log(res.tempFilePaths)
 						this.imageList = this.imageList.concat(res.tempFilePaths)
+
+					
+						this.$emit('change', this.imageList)
 						// 上传图片
 						res.tempFilePaths.forEach(item => {
-							
-							
+
+
 							// this.$H.upload('/image/uploadmore', {
 							// 	filePath: item,
 							// 	name: 'imglist[]',
 							// 	token: true
 							// }).then(result => {
-								// this.imageList.push(result.data.list[0])
-								this.$emit('change', this.imageList)
+							// this.imageList.push(result.data.list[0])
+							// this.$emit('change', this.imageList)
 							// })
-							
-							
+
+
 						})
 					},
 					fail: (err) => {
+
+						console.log('err', err)
+
 						// #ifdef APP-PLUS
 						if (err['code'] && err.code !== 0 && this.sourceTypeIndex === 2) {
 							this.checkPermission(err.code);

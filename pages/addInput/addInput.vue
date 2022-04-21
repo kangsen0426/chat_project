@@ -23,7 +23,6 @@
 </template>
 
 <script>
-
 	import uploadImage from '../../components/common/upload-image.vue'
 	export default {
 		components: {
@@ -77,6 +76,8 @@
 						let result = JSON.parse(res.data)
 						this.content = result.content
 						this.imageList = result.imageList
+
+
 					}
 				}
 			})
@@ -91,7 +92,10 @@
 				}
 			},
 			handleImgChange(list) {
+
 				this.imageList = list
+
+				console.log(this.imageList)
 			},
 			// 保存操作
 			store() {
@@ -100,6 +104,7 @@
 					content: this.content,
 					imageList: this.imageList
 				}
+
 				uni.setStorage({
 					key: 'add-input',
 					data: JSON.stringify(obj)

@@ -122,17 +122,38 @@
 				}
 			}
 
+		}, {
+			"path": "pages/userList/userList",
+			"style": {
+				"app-plus": {
+					// 动画效果
+					"animationType": "slide-in-left",
+					// 导航栏配置
+					"titleNView": {
+						// 取消返回按钮
+						"autoBackButton": false,
+						// 搜索框配置
+						"searchInput": {
+							"align": "center",
+							"backgroundColor": "#F5F4F2",
+							"borderRadius": "4px",
+							"disabled": true,
+							"placeholder": "搜索用户",
+							"placeholderColor": "#6D6C67"
+						},
+						"buttons": [{
+							"color": "#333333",
+							"colorPressed": "#FD597C",
+							"float": "right",
+							"fontSize": "15px",
+							"text": "取消"
+						}]
+					}
+				}
+			}
+
 		}
-	    ,{
-            "path" : "pages/userList/userList",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-    ],
+	],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "社区交友",
