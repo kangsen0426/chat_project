@@ -19,7 +19,7 @@
 
 <script>
 	import uniListItem from '@/components/uni-ui/uni-list-item/uni-list-item.vue';
-	// import {mapState} from 'vuex';
+	import {mapState} from 'vuex';
 	export default {
 		components: {
 			uniListItem
@@ -38,9 +38,9 @@
 			}
 		},
 		computed: {
-			// ...mapState({
-			// 	loginStatus:state=>state.loginStatus
-			// })
+			...mapState({
+				loginStatus:state=>state.loginStatus
+			})
 		},
 		methods: {
 			getStorageInfo(){
