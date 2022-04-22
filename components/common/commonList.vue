@@ -1,5 +1,5 @@
 <template>
-	<view class="commen_list_wrap">
+	<view class="commen_list_wrap animated fast fadeIn">
 		<!-- 信息区域 -->
 		<view class="user_info_box">
 			<view class="user_info">
@@ -67,7 +67,9 @@
 		},
 		methods: {
 			openUserSpace() {
-
+				uni.navigateTo({
+					url: '../../pages/user-space/user-space'
+				});
 			},
 			follow() {
 				this.$emit('follow', this.index)
@@ -80,13 +82,13 @@
 				})
 			},
 			support() {
-				this.$emit('togglesupport', {
+				this.$emit('doSupport', {
 					type: 'support',
 					index: this.index
 				})
 			},
 			unsupport() {
-				this.$emit('togglesupport', {
+				this.$emit('doSupport', {
 					type: 'unsupport',
 					index: this.index
 				})

@@ -11,7 +11,7 @@
 				<scroll-view @scrolltolower="loadMore(i)" scroll-y="true" :style="'height:'+scrollH+'px'">
 					<template v-if="item.list.length > 0">
 						<block v-for="(item2,index) in item.list" :key="index">
-							<common-list :item="item2" :index="index" @follow="togglefollow" @togglesupport="doSupport">
+							<common-list :item="item2" :index="index" @follow="togglefollow" @doSupport="doSupport">
 							</common-list>
 							<divider></divider>
 						</block>

@@ -10,6 +10,11 @@ import divider from './components/common/divider.vue';
 Vue.component('divider', divider)
 import noThing from './components/common/nothing.vue';
 Vue.component('no-thing', noThing)
+import $C from "./common/config.js"
+Vue.prototype.$C = $C
+// 挂在助手函数库
+import $U from './common/utils.js';
+Vue.prototype.$U = $U
 
 
 Vue.config.productionTip = false

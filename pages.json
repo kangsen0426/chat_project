@@ -191,8 +191,9 @@
 		}, {
 			"path": "pages/login/login",
 			"style": {
-				"navigationBarTitleText": "",
-				"enablePullDownRefresh": false
+				"app-plus": {
+					"titleNView": false
+				}
 			}
 
 		}, {
@@ -242,6 +243,19 @@
 			"style": {
 				"navigationBarTitleText": "关于社区",
 				"enablePullDownRefresh": false
+			}
+
+		}, {
+			"path": "pages/user-space/user-space",
+			"style": {
+				"navigationBarTitleText": "个人空间",
+				"app-plus": {
+					"titleNView": {
+						"buttons": [{
+							"type": "menu"
+						}]
+					}
+				}
 			}
 
 		}
