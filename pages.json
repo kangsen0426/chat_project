@@ -39,6 +39,7 @@
 			"style": {
 				"navigationBarTitleText": "消息列表",
 				"enablePullDownRefresh": true,
+				"navigationStyle":"custom",
 				"app-plus": {
 					"titleNView": {
 						"buttons": [{

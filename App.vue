@@ -10,6 +10,8 @@
 			this.$U.onNetWork()
 			// 初始化用户登录状态
 			this.$store.dispatch('initUser')
+			
+			
 		},
 		onShow: function() {
 			console.log('App Show')

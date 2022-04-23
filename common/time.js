@@ -34,7 +34,7 @@ export default{
 	},
 	// 人性化时间格式
 	gettime(shorttime){
-		shorttime=shorttime.toString().length<13 ? shorttime*1000 : shorttime;
+		shorttime=shorttime?.toString().length<13 ? shorttime*1000 : shorttime;
 		let now = (new Date()).getTime();
 		let cha = (now-parseInt(shorttime))/1000;
 		
