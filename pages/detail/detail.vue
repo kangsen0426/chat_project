@@ -101,7 +101,7 @@
 			})
 		},
 		onUnload() {
-			// uni.$off('updateFollowOrSupport', (e) => {})
+			uni.$off('updateFollowOrSupport', (e) => {})
 		},
 		computed: {
 			imagesList() {
@@ -117,7 +117,7 @@
 			})
 		},
 		onBackPress() {
-			// this.$refs.share.close()
+			this.$refs.share.close()
 		},
 		// #ifndef APP-PLUS
 		// 微信小程序分享
@@ -136,15 +136,15 @@
 				})
 				this.info = data
 				this.info.content = ''
-				
+
 				this.images = data.images
-				
+
 				// 请求api
-				// this.$H.get('/post/' + this.info.id).then(res => {
-				// 	this.info.content = res.detail.content
-				// 	this.images = res.detail.images
-				// 	console.log(res);
-				// })
+				this.$H.get('/post/' + this.info.id).then(res => {
+					this.info.content = res.detail.content
+					this.images = res.detail.images
+					console.log(res);
+				})
 				this.getComments()
 			},
 			// 点击评论
@@ -221,30 +221,32 @@
 					title: '评论中...',
 					mask: false
 				});
-				// this.$H.post('/post/comment', {
-				// 	fid: this.reply_id,
-				// 	data: data,
-				// 	post_id: this.info.id
-				// }, {
-				// 	token: true
-				// }).then(res => {
-				// 	uni.hideLoading()
-				// 	this.getComments()
-				// }).catch(err => {
-				// 	uni.hideLoading()
-				// })
+				this.$H.post('/post/comment', {
+					fid: this.reply_id,
+					data: data,
+					post_id: this.info.id
+				}, {
+					token: true
+				}).then(res => {
+					uni.hideLoading()
+					this.getComments()
+				}).catch(err => {
+					uni.hideLoading()
+				})
 			},
 			// 获取评论列表
 			getComments() {
-				// this.$H.get('/post/' + this.info.id + '/comment')
-				// 	.then(res => {
-				// 		this.comments = this.__ArrSort(res.list)
-				// 		this.info.comment_count = this.comments.length
-				// 		uni.$emit('updateCommentsCount', {
-				// 			id: this.info.id,
-				// 			count: this.info.comment_count
-				// 		})
-				// 	})
+				this.$H.get('/post/' + this.info.id + '/comment')
+					.then(res => {
+						console.log('转换前：', res)
+						this.comments = this.__ArrSort(res.list)
+						console.log('转换后：', this.comments)
+						this.info.comment_count = this.comments.length
+						uni.$emit('updateCommentsCount', {
+							id: this.info.id,
+							count: this.info.comment_count
+						})
+					})
 			},
 			// 重新整理评论格式
 			__ArrSort(arr, id = 0) {

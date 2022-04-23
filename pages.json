@@ -101,9 +101,9 @@
 		}, {
 			"path": "pages/addInput/addInput",
 			"style": {
-				"navigationBarTitleText": "发布",
-				"enablePullDownRefresh": false
-
+				"app-plus": {
+					"titleNView": false
+				}
 			}
 
 		}, {
@@ -199,8 +199,14 @@
 		}, {
 			"path": "pages/history/history",
 			"style": {
-				"navigationBarTitleText": "",
-				"enablePullDownRefresh": false
+				"navigationBarTitleText": "浏览历史",
+				"app-plus": {
+					"titleNView": {
+						"buttons": [{
+							"type": "menu"
+						}]
+					}
+				}
 			}
 
 		}, {
@@ -256,6 +262,12 @@
 						}]
 					}
 				}
+			}
+
+		}, {
+			"path": "pages/user-safe/user-safe",
+			"style": {
+				"navigationBarTitleText": "账号与安全"
 			}
 
 		}

@@ -1,8 +1,8 @@
 <template>
 	<view>
 		<!-- 未登录 -->
-		<!-- <template v-if="!loginStatus"> -->
-		<template v-if="tempstate">
+		<template v-if="!loginStatus">
+			<!-- <template v-if="tempstate"> -->
 			<view class="flex align-center justify-center py-2 font">
 				登录社区，体验更多功能
 			</view>
@@ -60,9 +60,9 @@
 <script>
 	import uniListItem from '@/components/uni-ui/uni-list-item/uni-list-item.vue';
 	import otherLogin from '@/components/common/other-login.vue';
-	// import {
-	// 	mapState
-	// } from 'vuex'
+	import {
+		mapState
+	} from 'vuex'
 	export default {
 		components: {
 			uniListItem,
@@ -92,19 +92,19 @@
 			});
 		},
 		computed: {
-			// ...mapState({
-			// 	loginStatus: state => state.loginStatus,
-			// 	user: state => state.user
-			// }),
+			...mapState({
+				loginStatus: state => state.loginStatus,
+				user: state => state.user
+			}),
 			// 用户头像
 			avatar() {
 				return this.user.userpic ? this.user.userpic : '/static/default.jpg'
 			}
 		},
 		onShow() {
-			// if (this.loginStatus) {
-			// 	this.getCounts()
-			// }
+			if (this.loginStatus) {
+				this.getCounts()
+			}
 		},
 		watch: {
 			loginStatus(newValue, oldValue) {

@@ -1,106 +1,167 @@
 <template>
-	<view class="commen_list_wrap animated fast fadeIn">
-		<!-- 信息区域 -->
-		<view class="user_info_box">
-			<view class="user_info">
-				<image @click="openUserSpace" :src="item.useravatar ? item.useravatar : '/static/default.jpg'" lazy-load
-					mode="aspectFit">
-				</image>
+	<view class="p-2 animated fast fadeIn">
+		<!-- 头像昵称 | 关注按钮 -->
+		<view class="flex align-center justify-between">
+			<view class="flex align-center">
+				<!-- 头像 -->
+				<image class="rounded-circle mr-2" :src="item.userpic" @click="openSpace(item.user_id)"
+					style="width: 65rpx;height: 65rpx;" lazy-load></image>
+				<!-- 昵称发布时间 -->
 				<view>
-					<view class="user_name">
+					<view class="font" style="line-height: 1.5;">
 						{{item.username}}
 					</view>
-					<text class="time">
-						{{item.newstime}}
+					<text class="font-sm text-light-muted" style="line-height: 1.5;">
+						{{item.newstime|formatTime}}
 					</text>
 				</view>
 			</view>
-			<view class="follow animated" hover-class="jello" @click="follow" v-if="!item.isFollow">
+			<!-- 按钮 -->
+			<view @click="follow" v-if="!item.isFollow && user.id !== item.user_id"
+				class="flex align-center justify-center rounded bg-main text-white animated faster"
+				style="width: 90rpx;height: 50rpx;" hover-class="jello">
 				关注
 			</view>
 		</view>
-		<view class="title_box" @click="openDetail">
-			{{item.title}}
-		</view>
-		<view class="img_box" v-if="item.titlepic" @click="openDetail">
-			<image :src="item.titlepic"></image>
-		</view>
-		<view class="btn_wrap">
-			<view class="btn_item animated" hover-class="rubberBand text-main" @click="support">
-				<text
-					:class="['iconfont',item.support.type === 'support' ? 'icon-dianzan1 text-main' : 'icon-dianzan2']"
-					style="margin-right: 20rpx;"></text>
-				<text>{{item.support.support_count > 0 ? item.support.support_count :'顶'}}</text>
+		<!-- 标题 -->
+		<view class="font-md my-1" @click="openDetail">{{item.title}}</view>
+		<!-- 帖子详情 -->
+		<slot>
+			<!-- 图片 -->
+			<image v-if="item.titlepic" :src="item.titlepic" @click="openDetail" style="height: 350rpx;"
+				class="rounded w-100" mode="aspectFill"></image>
+		</slot>
+		<!-- 图标按钮 -->
+		<view class="flex align-center">
+			<!-- 顶 -->
+			<view class="flex align-center justify-center flex-1 animated faster" hover-class="jello text-main"
+				@click="doSupport('support')" :class="item.support.type === 'support' ? 'support-active' : ''">
+				<text class="iconfont icon-dianzan2 mr-2"></text>
+				<text>{{item.support.support_count > 0 ? item.support.support_count : '支持'}}</text>
 			</view>
-			<view class="btn_item animated" hover-class="rubberBand text-main" @click="unsupport">
-				<text :class="['iconfont',item.support.type === 'unsupport' ? 'icon-cai text-main' : 'icon-cai']"
-					style="margin-right: 20rpx;"></text>
-				<text>{{item.support.unsupport_count > 0 ? item.support.unsupport_count : '踩'}}</text>
+			<!-- 踩 -->
+			<view class="flex align-center justify-center flex-1 animated faster" hover-class="jello text-main"
+				@click="doSupport('unsupport')" :class="item.support.type === 'unsupport' ? 'support-active' : ''">
+				<text class="iconfont icon-cai mr-2"></text>
+				<text>{{item.support.unsupport_count > 0 ? item.support.unsupport_count : '反对'}}</text>
 			</view>
-			<view class="btn_item animated" hover-class="rubberBand text-main" @click="doComment">
-				<text class="iconfont icon-pinglun2" style="margin-right: 20rpx;"></text>
+			<view class="flex align-center justify-center flex-1 animated faster" hover-class="jello text-main"
+				@click="doComment">
+				<text class="iconfont icon-pinglun2 mr-2"></text>
 				<text>{{item.comment_count > 0 ? item.comment_count : '评论'}}</text>
 			</view>
-			<view class="btn_item animated" hover-class="rubberBand text-main" @click="doShare">
-				<text class="iconfont icon-zhuanfa1" style="margin-right: 20rpx;"></text>
-				<text>{{item.share_num > 0 ? item.share_num :'分享'}}</text>
+			<view class="flex align-center justify-center flex-1 animated faster" hover-class="jello text-main"
+				@click="doShare">
+				<text class="iconfont icon-fenxiang mr-2"></text>
+				<text>{{item.share_num > 0 ? item.share_num : '分享'}}</text>
 			</view>
 		</view>
-
 	</view>
 </template>
-
 <script>
+	import $T from '@/common/time.js';
+	import {
+		mapState
+	} from 'vuex';
 	export default {
 		props: {
-			item: {
-				type: Object,
-				required: true
-			},
+			item: Object,
 			index: {
-				type: Number
+				type: Number,
+				default: -1
 			},
 			isdetail: {
 				type: Boolean,
 				default: false
 			}
 		},
+		filters: {
+			formatTime(value) {
+				return $T.gettime(value);
+			}
+		},
+		computed: {
+			...mapState({
+				user: state => state.user
+			})
+		},
 		methods: {
-			openUserSpace() {
+			// 打开个人空间
+			openSpace(user_id) {
 				uni.navigateTo({
-					url: '../../pages/user-space/user-space'
+					url: '/pages/user-space/user-space?user_id=' + user_id,
 				});
 			},
+			// 关注
 			follow() {
-				this.$emit('follow', this.index)
+				this.checkAuth(() => {
+					this.$H.post('/follow', {
+						follow_id: this.item.user_id
+					}, {
+						token: true
+					}).then(res => {
+						// 通知更新
+						uni.$emit('updateFollowOrSupport', {
+							type: "follow",
+							data: {
+								user_id: this.item.user_id
+							}
+						})
+					})
+				})
 			},
+			// 进入详情页
 			openDetail() {
 				// 处于详情中
 				if (this.isdetail) return;
 				uni.navigateTo({
-					url: "../../pages/detail/detail?detail=" + JSON.stringify(this.item)
-				})
+					url: '../../pages/detail/detail?detail=' + JSON.stringify(this.item),
+				});
+				// 加入历史记录
+				let list = uni.getStorageSync('history')
+				list = list ? JSON.parse(list) : []
+				let index = list.findIndex(v => v.id === this.item.id)
+				if (index === -1) {
+					list.unshift(this.item)
+					uni.setStorageSync('history', JSON.stringify(list))
+				}
 			},
-			support() {
-				this.$emit('doSupport', {
-					type: 'support',
-					index: this.index
-				})
-			},
-			unsupport() {
-				this.$emit('doSupport', {
-					type: 'unsupport',
-					index: this.index
+			// 顶踩操作
+			doSupport(type) {
+				this.checkAuth(() => {
+					this.$H.post('/support', {
+						post_id: this.item.id,
+						type: type === 'support' ? 0 : 1
+					}, {
+						token: true,
+						native: true
+					}).then(res => {
+						if (res.data.errorCode) {
+							return uni.showToast({
+								title: res.data.msg,
+								icon: 'none'
+							});
+						}
+						console.log('通知父组件');
+						// 通知父组件
+						uni.$emit('updateFollowOrSupport', {
+							type: "support",
+							data: {
+								type: type,
+								id: this.item.id
+							}
+						})
+					})
 				})
 			},
 			// 评论
 			doComment() {
-				// this.checkAuth(() => {
-				if (!this.isdetail) {
-					return this.openDetail()
-				}
-				this.$emit('doComment')
-				// })
+				this.checkAuth(() => {
+					if (!this.isdetail) {
+						return this.openDetail()
+					}
+					this.$emit('doComment')
+				})
 			},
 			// 分享
 			doShare() {
@@ -109,90 +170,12 @@
 				}
 				this.$emit('doShare')
 			}
-		}
+		},
 	}
 </script>
 
-<style lang="scss">
-	.commen_list_wrap {
-		width: 100%;
-		padding: 20rpx;
-		box-sizing: border-box;
-
-
-		.user_info_box {
-			width: 100%;
-			display: flex;
-			justify-content: space-between;
-			align-items: center;
-
-			.user_info {
-				display: flex;
-				align-items: center;
-
-				image {
-					width: 65rpx;
-					height: 65rpx;
-					border-radius: 50%;
-					margin-right: 20rpx;
-				}
-
-				.user_name {
-					font-size: 30rpx;
-					line-height: 1.5;
-				}
-
-				.time {
-					color: #9D9589;
-					font-size: 25rpx;
-					line-height: 1.5;
-				}
-
-			}
-
-			.follow {
-				width: 90rpx;
-				height: 50rpx;
-				display: flex;
-				justify-content: center;
-				align-items: center;
-				border-radius: 6rpx;
-				background-color: #FF4A6A;
-				color: #FFFFFF;
-			}
-
-
-		}
-
-		.title_box {
-			font-size: 30rpx;
-			padding: 16rpx 0;
-		}
-
-		.img_box {
-			width: 100%;
-
-			image {
-				width: 100%;
-				height: 350rpx;
-				border-radius: 6rpx;
-			}
-		}
-
-		.btn_wrap {
-			display: flex;
-			align-items: center;
-			padding: 10rpx 0;
-
-			.btn_item {
-				flex: 1;
-				display: flex;
-				align-items: center;
-				justify-content: center;
-			}
-		}
-
-
-
+<style>
+	.support-active {
+		color: #FF4A6A;
 	}
 </style>

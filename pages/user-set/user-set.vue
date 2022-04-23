@@ -79,7 +79,7 @@
 						if (res.confirm) {
 							this.$store.commit('logout')
 							// 关闭socket
-							this.$store.dispatch('closeSocket')
+							// this.$store.dispatch('closeSocket')
 							uni.navigateBack({
 								delta: 1
 							});

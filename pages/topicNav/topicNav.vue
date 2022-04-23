@@ -23,10 +23,10 @@
 						<load-more :loadmore="item.loadmore"></load-more>
 					</template>
 					<!-- 加载中 -->
-					<!-- <template v-else-if="!item.firstLoad">
+					<template v-else-if="!item.firstLoad">
 						<view class="text-light-muted flex align-center justify-center font-md" style="height: 200rpx;">
 							加载中...</view>
-					</template> -->
+					</template>
 					<!-- 无数据 -->
 					<template v-else>
 						<no-thing></no-thing>
@@ -48,7 +48,6 @@
 		components: {
 			topicList,
 			loadMore
-		
 		},
 		data() {
 			return {
@@ -57,32 +56,9 @@
 				// 顶部选项卡
 				scrollInto: "",
 				tabIndex: 0,
-				tabBars: [{
-						classname: '财经'
-					},
-
-					{
-						classname: '电影'
-					}
-
-				],
-				newsList: [{
-					list: [{
-						cover: '/static/demo/topicpic/1.jpeg',
-						title: '车室test',
-						desc: '搜索框咱们三',
-						today_count: 0,
-						news_count: 0
-					}, {
-						cover: '/static/demo/topicpic/1.jpeg',
-						title: '车室test',
-						desc: '搜索框咱们搜索框咱们三搜索框三',
-						today_count: 0,
-						news_count: 0
-					}]
-				}],
-				choose: false, 
-
+				tabBars: [],
+				newsList: [],
+				choose: false
 			}
 		},
 		// 监听点击导航栏搜索框
@@ -117,27 +93,27 @@
 			// 获取数据
 			getData() {
 				// 获取分类
-				// this.$H.get('/topicclass').then(res => {
-				// 	// 渲染分类
-				// 	this.tabBars = res.list
-				// 	let arr = []
-				// 	for (let i = 0; i < this.tabBars.length; i++) {
-				// 		// 生成列表模板
-				// 		let obj = {
-				// 			// 1.上拉加载更多  2.加载中... 3.没有更多了
-				// 			loadmore: "上拉加载更多",
-				// 			list: [],
-				// 			page: 1,
-				// 			firstLoad: false
-				// 		}
-				// 		arr.push(obj)
-				// 	}
-				// 	this.newsList = arr
-				// 	// 获取第一个分类的数据
-				// 	if (this.tabBars.length) {
-				// 		this.getList()
-				// 	}
-				// })
+				this.$H.get('/topicclass').then(res => {
+					// 渲染分类
+					this.tabBars = res.list
+					var arr = []
+					for (let i = 0; i < this.tabBars.length; i++) {
+						// 生成列表模板
+						let obj = {
+							// 1.上拉加载更多  2.加载中... 3.没有更多了
+							loadmore: "上拉加载更多",
+							list: [],
+							page: 1,
+							firstLoad: false
+						}
+						arr.push(obj)
+					}
+					this.newsList = arr
+					// 获取第一个分类的数据
+					if (this.tabBars.length) {
+						this.getList()
+					}
+				})
 			},
 			// 获取指定分类下的列表
 			getList() {
@@ -145,32 +121,31 @@
 				let id = this.tabBars[index].id
 				let page = this.newsList[index].page
 				let isrefresh = page === 1
+				this.$H.get('/topicclass/' + id + '/topic/' + page)
+					.then(res => {
+						let list = res.list.map(v => {
+							return {
+								id: v.id,
+								cover: v.titlepic,
+								title: v.title,
+								desc: v.desc,
+								today_count: v.todaypost_count,
+								news_count: v.post_count
+							}
+						})
 
-				// this.$H.get('/topicclass/' + id + '/topic/' + page)
-				// 	.then(res => {
-				// 		let list = res.list.map(v => {
-				// 			return {
-				// 				id: v.id,
-				// 				cover: v.titlepic,
-				// 				title: v.title,
-				// 				desc: v.desc,
-				// 				today_count: v.todaypost_count,
-				// 				news_count: v.post_count
-				// 			}
-				// 		})
+						this.newsList[index].list = isrefresh ? [...list] : [...this.newsList[index].list, ...list];
 
-				// 		this.newsList[index].list = isrefresh ? [...list] : [...this.newsList[index].list, ...list];
+						this.newsList[index].loadmore = list.length < 10 ? '没有更多了' : '上拉加载更多';
 
-				// 		this.newsList[index].loadmore = list.length < 10 ? '没有更多了' : '上拉加载更多';
-
-				// 		if (isrefresh) {
-				// 			this.newsList[index].firstLoad = true
-				// 		}
-				// 	}).catch(err => {
-				// 		if (!isrefresh) {
-				// 			this.newsList[index].page--;
-				// 		}
-				// 	})
+						if (isrefresh) {
+							this.newsList[index].firstLoad = true
+						}
+					}).catch(err => {
+						if (!isrefresh) {
+							this.newsList[index].page--;
+						}
+					})
 			},
 			// 监听滑动
 			onChangeTab(e) {
@@ -185,9 +160,9 @@
 				// 滚动到指定元素
 				this.scrollInto = 'tab' + index
 				// 获取当前分类下的列表数据
-				// if (!this.newsList[this.tabIndex].firstLoad) {
-				// 	this.getList()
-				// }
+				if (!this.newsList[this.tabIndex].firstLoad) {
+					this.getList()
+				}
 			},
 			// 上拉加载更多
 			loadmore(index) {

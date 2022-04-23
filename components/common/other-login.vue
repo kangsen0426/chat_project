@@ -104,12 +104,12 @@
 						/*
 						{
 							"authResult": {
-								"access_token": "28_ceqdzxESqQwYEFKp6LjgHZkUxkMpF6MqvCi0gr-Spwurp87utuxkHTr0nZFh7-TNZTQ4ds5ufnRoGnLsFw59NLWPWs3MNrZpOg1IsoQmfoE",
+								"access_token": "",
 								"expires_in": 7200,
-								"refresh_token": "28_FAqK9VRNebbvKiEBgG3V9lC5NHEGRuhnoXS3pkGdE3M2GTPmd2eVFWBRNbcAwF5heXPb4RWMmCXeYJOiaTUzn0TlXIcD4xFO3CnkShN5ObU",
-								"openid": "oRrdQt3HS3Ns2TFCVLMOyxbR9DcM",
+								"refresh_token": "",
+								"openid": "",
 								"scope": "snsapi_userinfo",
-								"unionid": "oU5Yytz7ielo7Xw00LMgZsPeSDkQ"
+								"unionid": ""
 							},
 							"errMsg": "login:ok"
 						}

@@ -5,13 +5,12 @@
 				<view class="uni-uploader-title">点击可预览选好的图片</view>
 				<view class="uni-uploader-info">{{imageList.length}}/9</view>
 			</view>
-
 			<view class="uni-uploader-body">
 				<view class="uni-uploader__files">
 					<block v-for="(image,index) in imageList" :key="index">
 
 						<view class="uni-uploader__file position-relative">
-							<image class="uni-uploader__img rounded" :src="image" :data-src="image.url"
+							<image class="uni-uploader__img rounded" :src="image.url" :data-src="image.url"
 								@tap="previewImage" mode="aspectFill"></image>
 
 							<view class="position-absolute top-0 right-0 rounded"
@@ -32,21 +31,19 @@
 </template>
 <script>
 	import permision from "@/common/permission.js"
-	let sourceType = [
+	var sourceType = [
 		['camera'],
 		['album'],
 		['camera', 'album']
 	]
-	let sizeType = [
+	var sizeType = [
 		['compressed'],
 		['original'],
 		['compressed', 'original']
 	]
 	export default {
 		props: {
-			list: {
-				type: Array
-			},
+			list: Array,
 			show: {
 				type: Boolean,
 				default: true
@@ -65,9 +62,7 @@
 			}
 		},
 		created() {
-
 			this.imageList = this.list
-
 		},
 		destroyed() {
 			this.imageList = [],
@@ -84,7 +79,7 @@
 					title: '提示',
 					content: '是否要删除该图片？',
 					showCancel: true,
-					cancelText: '取消',
+					cancelText: '不删除',
 					confirmText: '删除',
 					success: res => {
 						if (res.confirm) {
@@ -92,13 +87,9 @@
 							this.$emit('change', this.imageList)
 						}
 					},
-					fail(err) {
-						console.log(err)
-					}
 				});
 			},
 			chooseImage: async function() {
-				
 				// #ifdef APP-PLUS
 				// TODO 选择相机或相册时 需要弹出actionsheet，目前无法获得是相机还是相册，在失败回调中处理
 				if (this.sourceTypeIndex !== 2) {
@@ -122,31 +113,19 @@
 					count: this.imageList.length + this.count[this.countIndex] > 9 ? 9 - this.imageList
 						.length : this.count[this.countIndex],
 					success: (res) => {
-						// console.log(res.tempFilePaths)
-						this.imageList = this.imageList.concat(res.tempFilePaths)
-
-					
-						this.$emit('change', this.imageList)
 						// 上传图片
 						res.tempFilePaths.forEach(item => {
-
-
-							// this.$H.upload('/image/uploadmore', {
-							// 	filePath: item,
-							// 	name: 'imglist[]',
-							// 	token: true
-							// }).then(result => {
-							// this.imageList.push(result.data.list[0])
-							// this.$emit('change', this.imageList)
-							// })
-
-
+							this.$H.upload('/image/uploadmore', {
+								filePath: item,
+								name: 'imglist[]',
+								token: true
+							}).then(result => {
+								this.imageList.push(result.data.list[0])
+								this.$emit('change', this.imageList)
+							})
 						})
 					},
 					fail: (err) => {
-
-						console.log('err', err)
-
 						// #ifdef APP-PLUS
 						if (err['code'] && err.code !== 0 && this.sourceTypeIndex === 2) {
 							this.checkPermission(err.code);
@@ -173,7 +152,7 @@
 								if (!authStatus) {
 									uni.showModal({
 										title: '授权失败',
-										content: '需要从您的相机或相册获取图片，请在设置界面打开相关权限',
+										content: 'Hello uni-app需要从您的相机或相册获取图片，请在设置界面打开相关权限',
 										success: (res) => {
 											if (res.confirm) {
 												uni.openSetting()

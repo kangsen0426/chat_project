@@ -51,13 +51,13 @@
 
 <script>
 	import loadMore from '@/components/common/loadmore.vue';
-	import noThing from '@/components/common/nothing.vue';
+	
 	import userList from '@/components/userList/userList.vue';
 	import uniNavBar from '@/components/uni-ui/uni-nav-bar/uni-nav-bar.vue';
 	export default {
 		components: {
 			loadMore,
-			noThing,
+		
 			userList,
 			uniNavBar
 		},
@@ -72,17 +72,15 @@
 					key: "friends"
 				}, {
 					name: "关注",
-					num: 100,
+					num: 0,
 					key: "follows"
 				}, {
 					name: "粉丝",
-					num: 30,
+					num: 0,
 					key: "fens"
 				}],
 
-				newsList: [
-					
-				]
+				newsList: []
 			}
 		},
 		// 监听点击输入框事件
@@ -119,18 +117,18 @@
 			},
 			// 获取用户相关数据
 			getCounts() {
-				// this.$H.get('/user/getcounts/' + this.user.id, {}, {
-				// 	token: true,
-				// 	notoast: true
-				// }).then(res => {
-				// 	this.tabBars[0].num = res.friend_count
-				// 	this.tabBars[1].num = res.withfollow_count
-				// 	this.tabBars[2].num = res.withfen_count
-				// })
+				this.$H.get('/user/getcounts/' + this.user.id, {}, {
+					token: true,
+					notoast: true
+				}).then(res => {
+					this.tabBars[0].num = res.friend_count
+					this.tabBars[1].num = res.withfollow_count
+					this.tabBars[2].num = res.withfen_count
+				})
 			},
 			// 获取数据
 			getData() {
-				let arr = []
+				var arr = []
 				for (let i = 0; i < this.tabBars.length; i++) {
 					// 生成列表模板
 					let obj = {
@@ -150,9 +148,6 @@
 				let id = this.tabBars[index].id
 				let page = this.newsList[index].page
 				let isrefresh = page === 1
-
-				return
-
 				this.$H.get('/' + this.tabBars[index].key + '/' + page, {}, {
 						token: true,
 						noCheck: true

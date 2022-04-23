@@ -134,7 +134,8 @@
 				})
 			}
 
-			this.list1 = demo
+			// this.list1 = demo
+			this.getData()
 		},
 		computed: {
 			// 当前列表数据
@@ -157,7 +158,7 @@
 			changeTab(index) {
 				this.tabIndex = index
 				if (!this['firstLoad' + (index + 1)]) {
-					// this.getData()
+					this.getData()
 				}
 			},
 			// 加载数据
@@ -193,7 +194,7 @@
 				this['loadtext' + no] = '加载中...'
 				// 请求数据
 				this['page' + no]++;
-				// this.getData()
+				this.getData()
 			},
 			// 关注
 			follow(user_id) {

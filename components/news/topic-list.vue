@@ -25,18 +25,18 @@
 		},
 		methods: {
 			open() {
-				// if (this.choose) {
-				// 	uni.$emit('chooseTopic', {
-				// 		id: this.item.id,
-				// 		title: this.item.title
-				// 	})
-				// 	return uni.navigateBack({
-				// 		delta: 1
-				// 	});
-				// }
-				// uni.navigateTo({
-				// 	url: '../../pages/topic-detail/topic-detail?detail=' + JSON.stringify(this.item),
-				// });
+				if (this.choose) {
+					uni.$emit('chooseTopic', {
+						id: this.item.id,
+						title: this.item.title
+					})
+					return uni.navigateBack({
+						delta: 1
+					});
+				}
+				uni.navigateTo({
+					url: '../../pages/topic-detail/topic-detail?detail=' + JSON.stringify(this.item),
+				});
 				uni.navigateTo({
 					url: "../../pages/topicDetail/topicDetail?detail=" + JSON.stringify(this.item)
 				})
